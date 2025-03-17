@@ -2,6 +2,7 @@
 #define	__DEBUG_USART_H
 
 #include "stm32f1xx.h"
+#include <stdio.h>
 
 //´®¿Ú²¨ÌØÂÊ
 #define DEBUG_USART_BAUDRATE                    115200
@@ -25,7 +26,8 @@
 
 void UART_SendStr(uint8_t *str);
 void DEBUG_USART_Init(void);
-// int fputc(int ch, FILE *f);
-// int fgetc(FILE *f);
+int fputc(int ch, FILE *f);
+int fgetc(FILE *f);
 extern UART_HandleTypeDef huart1;
+void my_printf(const char *fmt, ...); // custom printf() function
 #endif /* __USART1_H */

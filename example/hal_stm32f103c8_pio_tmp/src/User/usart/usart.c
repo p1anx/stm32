@@ -16,8 +16,10 @@
   */ 
   
 #include "usart.h"
-#include <stdio.h>
 
+#include <stdio.h>
+#include <stdarg.h>
+#include <string.h>
 UART_HandleTypeDef huart1;
 //extern uint8_t ucTemp;  
 
@@ -75,8 +77,9 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
   GPIO_InitStruct.Mode=GPIO_MODE_AF_INPUT;	//模式要设置为复用输入模式！	
   HAL_GPIO_Init(DEBUG_USART_RX_GPIO_PORT, &GPIO_InitStruct); 
  
-//  HAL_NVIC_SetPriority(DEBUG_USART_IRQ ,0,1);	//抢占优先级0，子优先级1
-//  HAL_NVIC_EnableIRQ(DEBUG_USART_IRQ );		    //使能USART1中断通道  
+ //设置和开启uart中断
+ HAL_NVIC_SetPriority(DEBUG_USART_IRQ ,0,1);	//抢占优先级0，子优先级1
+ HAL_NVIC_EnableIRQ(DEBUG_USART_IRQ );		    //使能USART1中断通道  
 }
 
 
@@ -92,13 +95,13 @@ void UART_SendStr(uint8_t *str)
   
 }
 //重定向c库函数printf到串口DEBUG_USART，重定向后可使用printf函数
-// int fputc(int ch, FILE *f)
-// {
-// 	/* 发送一个字节数据到串口DEBUG_USART */
-// 	HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 1000);	
+int fputc(int ch, FILE *f)
+{
+	/* 发送一个字节数据到串口DEBUG_USART */
+	HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 1000);	
 	
-// 	return (ch);
-// }
+	return (ch);
+}
 
 //重定向c库函数scanf到串口DEBUG_USART，重写向后可使用scanf、getchar等函数
 int fgetc(FILE *f)
@@ -109,17 +112,33 @@ int fgetc(FILE *f)
 }
 
 // #include "stdio.h"
-#ifdef __GNUC__
-  #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-#else
-  #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-#endif
+// #ifdef __GNUC__
+//   #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+// #else
+//   #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+// #endif
 
-PUTCHAR_PROTOTYPE
+// PUTCHAR_PROTOTYPE
+// {
+//   HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,0xFFFF);//阻塞方式打印,串口1
+//   return ch;
+// }
+
+/*add my printf*/
+void vprint(const char *fmt, va_list argp)
 {
-  HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,0xFFFF);//阻塞方式打印,串口1
-  return ch;
+    char string[200];
+    if(0 < vsprintf(string,fmt,argp)) // build string
+    {
+        HAL_UART_Transmit(&huart1, (uint8_t*)string, strlen(string), 0xffffff); // send message via UART
+    }
 }
 
-
+void my_printf(const char *fmt, ...) // custom printf() function
+{
+    va_list argp;
+    va_start(argp, fmt);
+    vprint(fmt, argp);
+    va_end(argp);
+}
 /*********************************************END OF FILE**********************/

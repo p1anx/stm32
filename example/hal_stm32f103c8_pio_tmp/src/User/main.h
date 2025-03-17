@@ -43,6 +43,7 @@
 #include "stm32f1xx_hal.h"
 
 static void SystemClock_Config(void);
+void Error_Handler(void);
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/

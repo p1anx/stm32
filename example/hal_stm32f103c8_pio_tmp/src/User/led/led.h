@@ -6,9 +6,9 @@
 //引脚定义
 /*******************************************************/
 //R 红色灯
-#define LEDx_PIN                  GPIO_PIN_1                
-#define LEDx_GPIO_PORT            GPIOA                     
-#define LEDx_GPIO_CLK_ENABLE()   __HAL_RCC_GPIOA_CLK_ENABLE()
+#define LEDx_PIN                  GPIO_PIN_13                
+#define LEDx_GPIO_PORT            GPIOC                     
+#define LEDx_GPIO_CLK_ENABLE()   __HAL_RCC_GPIOC_CLK_ENABLE()
 
 // //G 绿色灯
 // #define LED2_PIN                  GPIO_PIN_0               

@@ -14,4 +14,12 @@ PUTCHAR_PROTOTYPE
 }
 
 ```
+## 2 sprintf（alternative solution)
+```c
+int a = 11;
+float b = 2.2
+char buff[10];
+sprintf(buff, "a = %d b = %f\n", a, b);
+```
+if in `platformio`, add `build_flags = -Wl,-u,_printf_float` in `platformio.ini` file
 
