@@ -36,9 +36,9 @@
 
 
 /* 定义控制IO的宏 */
-#define LEDx_TOGGLE		digitalToggle(LEDx_GPIO_PORT,LEDx_PIN)
-#define LEDx_OFF		digitalHi(LEDx_GPIO_PORT,LEDx_PIN)
-#define LEDx_ON			digitalLo(LEDx_GPIO_PORT,LEDx_PIN)
+#define LEDx_TOGGLE()		digitalToggle(LEDx_GPIO_PORT,LEDx_PIN)
+#define LEDx_OFF()		digitalHi(LEDx_GPIO_PORT,LEDx_PIN)
+#define LEDx_ON()			digitalLo(LEDx_GPIO_PORT,LEDx_PIN)
 
 // #define LED2_TOGGLE		digitalToggle(LED2_GPIO_PORT,LED2_PIN)
 // #define LED2_OFF		digitalHi(LED2_GPIO_PORT,LED2_PIN)

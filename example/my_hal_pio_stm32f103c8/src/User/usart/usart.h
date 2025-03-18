@@ -3,6 +3,10 @@
 
 #include "stm32f1xx.h"
 #include <stdio.h>
+// add command as follow to `platformio.ini`
+/* build_flags = 
+            -Wl,-u,_printf_float
+*/
 
 //´®¿Ú²¨ÌØÂÊ
 #define DEBUG_USART_BAUDRATE                    115200

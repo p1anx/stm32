@@ -54,7 +54,7 @@ int main(void)
     while (1)
     {
       /***************LED****************/
-      // LEDx_TOGGLE;
+      // LEDx_TOGGLE();
       // HAL_Delay(1000);
 
       /***************KEY****************/
@@ -94,7 +94,7 @@ int main(void)
       /***************TIM BASE****************/
       // if(time == 500){
       //   time = 0;
-      //   LEDx_TOGGLE;
+      //   LEDx_TOGGLE();
       // }
 
       /***************TIM BASE****************/
