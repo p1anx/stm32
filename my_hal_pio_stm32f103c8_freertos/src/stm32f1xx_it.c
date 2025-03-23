@@ -14,6 +14,7 @@
 #include "stm32f1xx_it.h"
 #include "led.h"
 #include "stm32f1xx_hal_timebase_tim.h"
+#include "key.h"
 // #include "tim_base.h"
 // #include "tim_ic.h"
 
@@ -23,7 +24,27 @@
 /*            Cortex-M3 Processor Exceptions Handlers                         */
 /******************************************************************************/
 
+void KEY1_IT_IRQHandler(void)
+{
+  //确保是否产生了EXTI Line中断
+	// if(__HAL_GPIO_EXTI_GET_IT(KEY1_PIN) != RESET) 
+	// {
+	// 	// LED1 取反		
+	// 	LED1_TOGGLE();
+  //       //清除中断标志位
+	// 	__HAL_GPIO_EXTI_CLEAR_IT(KEY1_PIN);     
+	// }  
+  HAL_GPIO_EXTI_IRQHandler(KEY1_PIN);
 
+}        
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if(GPIO_Pin == KEY1_PIN)
+  {
+    LED1_TOGGLE();
+  }
+}
 /******************************************************************************/
 /*                time base source handler                                   */
 /******************************************************************************/

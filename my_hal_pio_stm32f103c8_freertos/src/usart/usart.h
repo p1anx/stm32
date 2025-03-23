@@ -28,7 +28,7 @@ build_flags =
 /************************************************************/
 
 void UART_SendStr(uint8_t *str);
-void DEBUG_USART_Init(void);
+void USART1_Init(void);
 int fputc(int ch, FILE *f);
 int fgetc(FILE *f);
 extern UART_HandleTypeDef huart1;

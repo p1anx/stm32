@@ -1,3 +1,7 @@
+## Issues
+### (1) if freertos is used, GPIO exti can't work
+
+
 ## change the `time base source`
 1. The modified content is as shown in `stm32f1xx_hal_timebase_tim.c` and `stm32f1xx_hal_timebase_tim.c`
 2. The most important thing is below.

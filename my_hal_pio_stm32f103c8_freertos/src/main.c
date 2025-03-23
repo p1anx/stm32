@@ -47,10 +47,13 @@ int main(void)
     SystemClock_Config();
     /* LED 端口初始化 */
     LED_GPIO_Init();
-    // Key_GPIO_Init();
+    KEY_GPIO_Init();
+    
     // Key_EXTI_Init();
-    DEBUG_USART_Init();
+    USART1_Init();
 
+
+    OLED_Init();
 
     FREERTOS_Init();
 
@@ -64,6 +67,9 @@ int main(void)
     /* 控制LED灯 */
     while (1)
     {
+      if(Key_Scan(1) == 1){
+        LED1_TOGGLE();
+      }
     }
 }
 /**

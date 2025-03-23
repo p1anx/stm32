@@ -5,8 +5,9 @@
 #include "stm32f1xx_hal.h"
 #include "led.h"
 #include "usart.h"
-// #include "tim_pwm.h"
-#include "tim_pwm1.h"
+#include "tim_pwm.h"
+#include "OLED.h"
+#include "key.h"
 
 static void SystemClock_Config(void);
 void Error_Handler(void);

@@ -28,7 +28,7 @@ UART_HandleTypeDef huart1;
   * @param  无
   * @retval 无
   */  
-void DEBUG_USART_Init(void)
+void USART1_Init(void)
 { 
   
   huart1.Instance          = DEBUG_USART;
