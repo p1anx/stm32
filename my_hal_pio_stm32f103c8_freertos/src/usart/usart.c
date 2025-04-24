@@ -20,7 +20,20 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
+
 UART_HandleTypeDef huart1;
+
+#ifdef __GNUC__
+  #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#else
+  #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif
+
+PUTCHAR_PROTOTYPE
+{
+  HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,0xFFFF);//阻塞方式打印,串口1
+  return ch;
+}
 //extern uint8_t ucTemp;  
 
  /**
@@ -111,18 +124,6 @@ int fgetc(FILE *f)
 	return (ch);
 }
 
-// #include "stdio.h"
-// #ifdef __GNUC__
-//   #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-// #else
-//   #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-// #endif
-
-// PUTCHAR_PROTOTYPE
-// {
-//   HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,0xFFFF);//阻塞方式打印,串口1
-//   return ch;
-// }
 
 /*add my printf*/
 void vprint(const char *fmt, va_list argp)

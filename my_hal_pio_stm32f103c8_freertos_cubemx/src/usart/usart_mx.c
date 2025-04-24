@@ -22,6 +22,17 @@
 #include <stdarg.h>
 #include <string.h>
 
+#ifdef __GNUC__
+  #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#else
+  #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif
+
+PUTCHAR_PROTOTYPE
+{
+  HAL_UART_Transmit(&mx_huart1,(uint8_t *)&ch,1,0xFFFF);//阻塞方式打印,串口1
+  return ch;
+}
 
 /*****************  发送字符串 **********************/
 void UART_SendStr(uint8_t *str)
@@ -51,18 +62,6 @@ int fgetc(FILE *f)
 	return (ch);
 }
 
-// #include "stdio.h"
-// #ifdef __GNUC__
-//   #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-// #else
-//   #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-// #endif
-
-// PUTCHAR_PROTOTYPE
-// {
-//   HAL_UART_Transmit(&mx_huart1,(uint8_t *)&ch,1,0xFFFF);//阻塞方式打印,串口1
-//   return ch;
-// }
 
 /*add my printf*/
 void vprint(const char *fmt, va_list argp)
