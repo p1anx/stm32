@@ -1,0 +1,174 @@
+ARM GAS  /tmp/cc7tUCpW.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"usart_mx.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "BSP/usart/usart_mx.c"
+  20              		.section	.text.__io_putchar,"ax",%progbits
+  21              		.align	1
+  22              		.global	__io_putchar
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	__io_putchar:
+  28              	.LVL0:
+  29              	.LFB137:
+   1:BSP/usart/usart_mx.c **** 
+   2:BSP/usart/usart_mx.c **** #include "usart_mx.h"
+   3:BSP/usart/usart_mx.c **** 
+   4:BSP/usart/usart_mx.c **** #ifdef __GNUC__
+   5:BSP/usart/usart_mx.c ****   #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+   6:BSP/usart/usart_mx.c **** #else
+   7:BSP/usart/usart_mx.c ****   #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+   8:BSP/usart/usart_mx.c **** #endif
+   9:BSP/usart/usart_mx.c **** 
+  10:BSP/usart/usart_mx.c **** PUTCHAR_PROTOTYPE
+  11:BSP/usart/usart_mx.c **** {
+  30              		.loc 1 11 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 8
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 11 1 is_stmt 0 view .LVU1
+  35 0000 00B5     		push	{lr}
+  36              		.cfi_def_cfa_offset 4
+  37              		.cfi_offset 14, -4
+  38 0002 83B0     		sub	sp, sp, #12
+  39              		.cfi_def_cfa_offset 16
+  40 0004 0190     		str	r0, [sp, #4]
+  12:BSP/usart/usart_mx.c ****   HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,0xFFFF);//阻塞方式打印,串口1
+  41              		.loc 1 12 3 is_stmt 1 view .LVU2
+  42 0006 4FF6FF73 		movw	r3, #65535
+  43 000a 0122     		movs	r2, #1
+  44 000c 01A9     		add	r1, sp, #4
+  45 000e 0348     		ldr	r0, .L3
+  46              	.LVL1:
+ARM GAS  /tmp/cc7tUCpW.s 			page 2
+
+
+  47              		.loc 1 12 3 is_stmt 0 view .LVU3
+  48 0010 FFF7FEFF 		bl	HAL_UART_Transmit
+  49              	.LVL2:
+  13:BSP/usart/usart_mx.c ****   return ch;
+  50              		.loc 1 13 3 is_stmt 1 view .LVU4
+  14:BSP/usart/usart_mx.c **** }
+  51              		.loc 1 14 1 is_stmt 0 view .LVU5
+  52 0014 0198     		ldr	r0, [sp, #4]
+  53 0016 03B0     		add	sp, sp, #12
+  54              		.cfi_def_cfa_offset 4
+  55              		@ sp needed
+  56 0018 5DF804FB 		ldr	pc, [sp], #4
+  57              	.L4:
+  58              		.align	2
+  59              	.L3:
+  60 001c 00000000 		.word	huart1
+  61              		.cfi_endproc
+  62              	.LFE137:
+  64              		.section	.text.UART_SendStr,"ax",%progbits
+  65              		.align	1
+  66              		.global	UART_SendStr
+  67              		.syntax unified
+  68              		.thumb
+  69              		.thumb_func
+  71              	UART_SendStr:
+  72              	.LVL3:
+  73              	.LFB138:
+  15:BSP/usart/usart_mx.c **** 
+  16:BSP/usart/usart_mx.c **** void UART_SendStr(uint8_t *str)
+  17:BSP/usart/usart_mx.c **** {
+  74              		.loc 1 17 1 is_stmt 1 view -0
+  75              		.cfi_startproc
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 0, uses_anonymous_args = 0
+  78              		.loc 1 17 1 is_stmt 0 view .LVU7
+  79 0000 38B5     		push	{r3, r4, r5, lr}
+  80              		.cfi_def_cfa_offset 16
+  81              		.cfi_offset 3, -16
+  82              		.cfi_offset 4, -12
+  83              		.cfi_offset 5, -8
+  84              		.cfi_offset 14, -4
+  85 0002 0546     		mov	r5, r0
+  18:BSP/usart/usart_mx.c **** 	unsigned int k=0;
+  86              		.loc 1 18 2 is_stmt 1 view .LVU8
+  87              	.LVL4:
+  88              		.loc 1 18 15 is_stmt 0 view .LVU9
+  89 0004 0024     		movs	r4, #0
+  90              	.LVL5:
+  91              	.L6:
+  19:BSP/usart/usart_mx.c ****   do 
+  92              		.loc 1 19 3 is_stmt 1 view .LVU10
+  20:BSP/usart/usart_mx.c ****   {
+  21:BSP/usart/usart_mx.c ****       HAL_UART_Transmit(&mx_huart1,(uint8_t *)(str + k) ,1,1000);
+  93              		.loc 1 21 7 view .LVU11
+  94 0006 4FF47A73 		mov	r3, #1000
+  95 000a 0122     		movs	r2, #1
+  96 000c 2919     		adds	r1, r5, r4
+ARM GAS  /tmp/cc7tUCpW.s 			page 3
+
+
+  97 000e 0448     		ldr	r0, .L8
+  98 0010 FFF7FEFF 		bl	HAL_UART_Transmit
+  99              	.LVL6:
+  22:BSP/usart/usart_mx.c ****       k++;
+ 100              		.loc 1 22 7 view .LVU12
+ 101              		.loc 1 22 8 is_stmt 0 view .LVU13
+ 102 0014 0134     		adds	r4, r4, #1
+ 103              	.LVL7:
+  23:BSP/usart/usart_mx.c ****   } while(*(str + k)!='\0');
+ 104              		.loc 1 23 21 is_stmt 1 discriminator 1 view .LVU14
+ 105              		.loc 1 23 11 is_stmt 0 discriminator 1 view .LVU15
+ 106 0016 2B5D     		ldrb	r3, [r5, r4]	@ zero_extendqisi2
+ 107              		.loc 1 23 21 discriminator 1 view .LVU16
+ 108 0018 002B     		cmp	r3, #0
+ 109 001a F4D1     		bne	.L6
+  24:BSP/usart/usart_mx.c ****   
+  25:BSP/usart/usart_mx.c **** }...
+ 110              		.loc 1 25 1 view .LVU17
+ 111 001c 38BD     		pop	{r3, r4, r5, pc}
+ 112              	.LVL8:
+ 113              	.L9:
+ 114              		.loc 1 25 1 view .LVU18
+ 115 001e 00BF     		.align	2
+ 116              	.L8:
+ 117 0020 00000000 		.word	huart1
+ 118              		.cfi_endproc
+ 119              	.LFE138:
+ 121              		.text
+ 122              	.Letext0:
+ 123              		.file 2 "/home/xwj/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-
+ 124              		.file 3 "/home/xwj/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-
+ 125              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 126              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 127              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 128              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+ 129              		.file 8 "BSP/usart/usart_mx.h"
+ARM GAS  /tmp/cc7tUCpW.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 usart_mx.c
+     /tmp/cc7tUCpW.s:21     .text.__io_putchar:00000000 $t
+     /tmp/cc7tUCpW.s:27     .text.__io_putchar:00000000 __io_putchar
+     /tmp/cc7tUCpW.s:60     .text.__io_putchar:0000001c $d
+     /tmp/cc7tUCpW.s:65     .text.UART_SendStr:00000000 $t
+     /tmp/cc7tUCpW.s:71     .text.UART_SendStr:00000000 UART_SendStr
+     /tmp/cc7tUCpW.s:117    .text.UART_SendStr:00000020 $d
+
+UNDEFINED SYMBOLS
+HAL_UART_Transmit
+huart1

@@ -1,0 +1,112 @@
+ARM GAS  /tmp/ccWxd0eE.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"mymain.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "BSP/mymain.c"
+  20              		.section	.rodata.mymain.str1.4,"aMS",%progbits,1
+  21              		.align	2
+  22              	.LC0:
+  23 0000 68656C6C 		.ascii	"hello makefile\000"
+  23      6F206D61 
+  23      6B656669 
+  23      6C6500
+  24 000f 00       		.align	2
+  25              	.LC1:
+  26 0010 68656C6C 		.ascii	"hello gcc, %f, %d\012\000"
+  26      6F206763 
+  26      632C2025 
+  26      662C2025 
+  26      640A00
+  27              		.section	.text.mymain,"ax",%progbits
+  28              		.align	1
+  29              		.global	mymain
+  30              		.syntax unified
+  31              		.thumb
+  32              		.thumb_func
+  34              	mymain:
+  35              	.LFB137:
+   1:BSP/mymain.c  **** #include "mymain.h"
+   2:BSP/mymain.c  **** int mymain(void){
+  36              		.loc 1 2 17 view -0
+  37              		.cfi_startproc
+  38              		@ args = 0, pretend = 0, frame = 0
+  39              		@ frame_needed = 0, uses_anonymous_args = 0
+  40 0000 00B5     		push	{lr}
+  41              		.cfi_def_cfa_offset 4
+  42              		.cfi_offset 14, -4
+  43 0002 83B0     		sub	sp, sp, #12
+  44              		.cfi_def_cfa_offset 16
+  45              	.L2:
+   3:BSP/mymain.c  ****     float a = 1.2;
+   4:BSP/mymain.c  ****     int b = 10;
+   5:BSP/mymain.c  ****     while(1){
+  46              		.loc 1 5 5 view .LVU1
+ARM GAS  /tmp/ccWxd0eE.s 			page 2
+
+
+   6:BSP/mymain.c  ****        led_blink(1000); 
+  47              		.loc 1 6 8 view .LVU2
+  48 0004 4FF47A70 		mov	r0, #1000
+  49 0008 FFF7FEFF 		bl	led_blink
+  50              	.LVL0:
+   7:BSP/mymain.c  ****        printf("hello makefile\n");
+  51              		.loc 1 7 8 view .LVU3
+  52 000c 0548     		ldr	r0, .L4
+  53 000e FFF7FEFF 		bl	puts
+  54              	.LVL1:
+   8:BSP/mymain.c  ****        printf("hello gcc, %f, %d\n", a, b);
+  55              		.loc 1 8 8 discriminator 1 view .LVU4
+  56 0012 0A23     		movs	r3, #10
+  57 0014 0093     		str	r3, [sp]
+  58 0016 4FF08042 		mov	r2, #1073741824
+  59 001a 034B     		ldr	r3, .L4+4
+  60 001c 0348     		ldr	r0, .L4+8
+  61 001e FFF7FEFF 		bl	printf
+  62              	.LVL2:
+   5:BSP/mymain.c  ****        led_blink(1000); 
+  63              		.loc 1 5 10 view .LVU5
+  64 0022 EFE7     		b	.L2
+  65              	.L5:
+  66              		.align	2
+  67              	.L4:
+  68 0024 00000000 		.word	.LC0
+  69 0028 3333F33F 		.word	1072902963
+  70 002c 10000000 		.word	.LC1
+  71              		.cfi_endproc
+  72              	.LFE137:
+  74              		.text
+  75              	.Letext0:
+  76              		.file 2 "/home/xwj/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-
+  77              		.file 3 "BSP/led/led.h"
+  78              		.file 4 "<built-in>"
+ARM GAS  /tmp/ccWxd0eE.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 mymain.c
+     /tmp/ccWxd0eE.s:21     .rodata.mymain.str1.4:00000000 $d
+     /tmp/ccWxd0eE.s:28     .text.mymain:00000000 $t
+     /tmp/ccWxd0eE.s:34     .text.mymain:00000000 mymain
+     /tmp/ccWxd0eE.s:68     .text.mymain:00000024 $d
+
+UNDEFINED SYMBOLS
+led_blink
+puts
+printf

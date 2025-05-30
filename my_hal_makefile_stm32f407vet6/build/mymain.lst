@@ -1,0 +1,153 @@
+ARM GAS  /tmp/ccXBQ9Gb.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"mymain.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "BSP/mymain.c"
+  20              		.section	.rodata.mymain.str1.4,"aMS",%progbits,1
+  21              		.align	2
+  22              	.LC0:
+  23 0000 68656C6C 		.ascii	"hello makefile\000"
+  23      6F206D61 
+  23      6B656669 
+  23      6C6500
+  24 000f 00       		.align	2
+  25              	.LC1:
+  26 0010 68656C6C 		.ascii	"hello gcc, %f, %d\012\000"
+  26      6F206763 
+  26      632C2025 
+  26      662C2025 
+  26      640A00
+  27 0023 00       		.align	2
+  28              	.LC2:
+  29 0024 68656C6C 		.ascii	"hello stm32\012\000"
+  29      6F207374 
+  29      6D33320A 
+  29      00
+  30              		.section	.text.mymain,"ax",%progbits
+  31              		.align	1
+  32              		.global	mymain
+  33              		.syntax unified
+  34              		.thumb
+  35              		.thumb_func
+  37              	mymain:
+  38              	.LFB137:
+   1:BSP/mymain.c  **** #include "mymain.h"
+   2:BSP/mymain.c  **** int mymain(void){
+  39              		.loc 1 2 17 view -0
+  40              		.cfi_startproc
+  41              		@ args = 0, pretend = 0, frame = 8
+  42              		@ frame_needed = 0, uses_anonymous_args = 0
+  43 0000 00B5     		push	{lr}
+  44              	.LCFI0:
+  45              		.cfi_def_cfa_offset 4
+  46              		.cfi_offset 14, -4
+ARM GAS  /tmp/ccXBQ9Gb.s 			page 2
+
+
+  47 0002 85B0     		sub	sp, sp, #20
+  48              	.LCFI1:
+  49              		.cfi_def_cfa_offset 24
+   3:BSP/mymain.c  ****     float a = 1.2;
+  50              		.loc 1 3 5 view .LVU1
+  51              	.LVL0:
+   4:BSP/mymain.c  ****     int b = 10;
+  52              		.loc 1 4 5 view .LVU2
+  53              		.loc 1 4 9 is_stmt 0 view .LVU3
+  54 0004 0A23     		movs	r3, #10
+  55 0006 0393     		str	r3, [sp, #12]
+  56              	.L2:
+   5:BSP/mymain.c  ****     while(1){
+  57              		.loc 1 5 5 is_stmt 1 view .LVU4
+   6:BSP/mymain.c  ****        led_blink(1000); 
+  58              		.loc 1 6 8 view .LVU5
+  59 0008 4FF47A70 		mov	r0, #1000
+  60 000c FFF7FEFF 		bl	led_blink
+  61              	.LVL1:
+   7:BSP/mymain.c  ****        HAL_UART_Transmit(&huart1, &b, 1, HAL_MAX_DELAY);
+  62              		.loc 1 7 8 view .LVU6
+  63 0010 4FF0FF33 		mov	r3, #-1
+  64 0014 0122     		movs	r2, #1
+  65 0016 03A9     		add	r1, sp, #12
+  66 0018 0848     		ldr	r0, .L4
+  67 001a FFF7FEFF 		bl	HAL_UART_Transmit
+  68              	.LVL2:
+   8:BSP/mymain.c  ****        printf("hello makefile\n");
+  69              		.loc 1 8 8 view .LVU7
+  70 001e 0848     		ldr	r0, .L4+4
+  71 0020 FFF7FEFF 		bl	puts
+  72              	.LVL3:
+   9:BSP/mymain.c  ****        printf("hello gcc, %f, %d\n", a, b);
+  73              		.loc 1 9 8 view .LVU8
+  74 0024 039B     		ldr	r3, [sp, #12]
+  75 0026 0093     		str	r3, [sp]
+  76 0028 4FF08042 		mov	r2, #1073741824
+  77 002c 054B     		ldr	r3, .L4+8
+  78 002e 0648     		ldr	r0, .L4+12
+  79 0030 FFF7FEFF 		bl	printf
+  80              	.LVL4:
+  10:BSP/mymain.c  ****        UART_SendStr("hello stm32\n");
+  81              		.loc 1 10 8 discriminator 1 view .LVU9
+  82 0034 0548     		ldr	r0, .L4+16
+  83 0036 FFF7FEFF 		bl	UART_SendStr
+  84              	.LVL5:
+   5:BSP/mymain.c  ****        led_blink(1000); 
+  85              		.loc 1 5 10 view .LVU10
+  86 003a E5E7     		b	.L2
+  87              	.L5:
+  88              		.align	2
+  89              	.L4:
+  90 003c 00000000 		.word	huart1
+  91 0040 00000000 		.word	.LC0
+  92 0044 3333F33F 		.word	1072902963
+  93 0048 10000000 		.word	.LC1
+  94 004c 24000000 		.word	.LC2
+ARM GAS  /tmp/ccXBQ9Gb.s 			page 3
+
+
+  95              		.cfi_endproc
+  96              	.LFE137:
+  98              		.text
+  99              	.Letext0:
+ 100              		.file 2 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stdint.h"
+ 101              		.file 3 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 102              		.file 4 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 103              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 104              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+ 105              		.file 7 "/usr/include/newlib/stdio.h"
+ 106              		.file 8 "BSP/usart/usart_mx.h"
+ 107              		.file 9 "BSP/led/led.h"
+ 108              		.file 10 "<built-in>"
+ARM GAS  /tmp/ccXBQ9Gb.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 mymain.c
+     /tmp/ccXBQ9Gb.s:21     .rodata.mymain.str1.4:00000000 $d
+     /tmp/ccXBQ9Gb.s:31     .text.mymain:00000000 $t
+     /tmp/ccXBQ9Gb.s:37     .text.mymain:00000000 mymain
+     /tmp/ccXBQ9Gb.s:90     .text.mymain:0000003c $d
+
+UNDEFINED SYMBOLS
+led_blink
+HAL_UART_Transmit
+puts
+printf
+UART_SendStr
+huart1
