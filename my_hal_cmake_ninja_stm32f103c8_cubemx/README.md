@@ -2,7 +2,7 @@
 open with `vscode`
 1. cmake
 ```bash
-cmake -B build -G ninja
+cmake -B build -G Ninja
 ```
 2. build
 ```bash
@@ -17,7 +17,7 @@ ninja -C build flash
 ## cmake build 
 ### for ninja
 ```bash
-cmake -B build -G ninja
+cmake -B build -G Ninja
 ```
 ### for make
 ```bash
