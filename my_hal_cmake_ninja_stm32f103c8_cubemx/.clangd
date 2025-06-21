@@ -1,0 +1,5 @@
+CompileFlags:
+  Add:
+    - "--target=arm-none-eabi"  # 关键：指定ARM目标
+    - "-I/usr/local/arm-gnu-toolchain/arm-none-eabi/include"  # 工具链头文件路径
+  DriverMode: cl  # 兼容GCC参数
