@@ -46,12 +46,15 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     BSP/ads1256.c
+    BSP/ads1256_main.c
+    BSP/test/test.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
     BSP
+    BSP/test
 )
 
 # Add project symbols (macros)
@@ -76,7 +79,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 )
 set(CMAKE_COLOR_DIAGNOSTICS ON)
 #================config options================
-set(UPLOAD_TOOL "cmsis-dap") #options: jlink, cmsis-dap
+set(UPLOAD_TOOL "jlink") #options: jlink, cmsis-dap
 set(SWD_JTAG_PORT "swd") #options: swd, jtag
 set(TARGET_MCU "stm32f1x") #options: stm32f1x, stm32f4x, stm32f7x, stm32h7x, and so on
 #==============================================

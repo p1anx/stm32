@@ -6,9 +6,9 @@
 #include "spi.h"
 #include "usart.h"
 
-#define HUART huart1
+#define HUART huart2
 
-#define ads1256_spi hspi1
+#define ads1256_spi hspi2
 
 #define AD_CS_GPIO_Port GPIOA
 #define AD_CS_Pin GPIO_PIN_4

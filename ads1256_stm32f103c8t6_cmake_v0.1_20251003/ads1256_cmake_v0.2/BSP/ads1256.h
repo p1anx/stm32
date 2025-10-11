@@ -5,22 +5,79 @@
 #include "gpio.h"
 #include "spi.h"
 #include "usart.h"
+#include <stdint.h>
 
-#define HUART huart1
+// extern SPI_HandleTypeDef hspi2;
 
-#define ads1256_spi hspi1
+#define HUART huart2
 
-#define AD_CS_GPIO_Port GPIOA
-#define AD_CS_Pin GPIO_PIN_4
+#define ads1256_spi hspi2
+
+#define AD_CS_GPIO_Port GPIOB
+#define AD_CS_Pin GPIO_PIN_12
 #define AD_DRDY_GPIO_Port GPIOB
-#define AD_DRDY_Pin GPIO_PIN_0
+#define AD_DRDY_Pin GPIO_PIN_10
 #define AD_RST_GPIO_Port GPIOB
-#define AD_RST_Pin GPIO_PIN_1
+#define AD_RST_Pin GPIO_PIN_11
 
 #define SPI_CS_LOW HAL_GPIO_WritePin(AD_CS_GPIO_Port, AD_CS_Pin, GPIO_PIN_RESET)
 #define SPI_CS_HIGH HAL_GPIO_WritePin(AD_CS_GPIO_Port, AD_CS_Pin, GPIO_PIN_SET)
-
 #define DRDY HAL_GPIO_ReadPin(AD_DRDY_GPIO_Port, AD_DRDY_Pin)
+
+#define ADS1256_SPI_CS_LOW() HAL_GPIO_WritePin(AD_CS_GPIO_Port, AD_CS_Pin, GPIO_PIN_RESET)
+#define ADS1256_SPI_CS_HIGH() HAL_GPIO_WritePin(AD_CS_GPIO_Port, AD_CS_Pin, GPIO_PIN_SET)
+#define ADS1256_GET_DRDY() HAL_GPIO_ReadPin(AD_DRDY_GPIO_Port, AD_DRDY_Pin)
+
+#define ADS1256_RST_LOW() HAL_GPIO_WritePin(AD_RST_GPIO_Port, AD_RST_Pin, GPIO_PIN_RESET); // ads1256 rst低有效
+#define ADS1256_RST_HIGH() HAL_GPIO_WritePin(AD_RST_GPIO_Port, AD_RST_Pin, GPIO_PIN_SET);  // ads1256 rst低有效
+
+typedef struct ADS1256_t ADS1256_t;
+typedef enum ADS1256_Status ADS1256_Status;
+typedef enum Drate_enum Drate_enum;
+enum Drate_enum
+{
+    _2_5SPS,
+    _5SPS,
+    _10SPS,
+    _15SPS,
+    _25SPS,
+    _30SPS,
+    _50SPS,
+    _60SPS,
+    _100SPS,
+    _500SPS,
+    _1000SPS,
+    _2000SPS,
+    _3750SPS,
+    _7500SPS,
+    _15000SPS,
+    _30000SPS
+};
+
+enum ADS1256_Status
+{
+    ADS1256_OK = 0x00U,
+    ADS1256_ERROR = 0x01U,
+};
+
+struct ADS1256_t
+{
+    int rawValue; // 24bit
+    uint32_t rawOFC;
+    uint32_t rawFSC;
+    float ofc_voltage;
+    float fsc_voltage;
+    float voltage;
+    // Drate_enum configDrate;
+    uint8_t configDrate;
+    uint8_t configGain;
+    uint8_t Drate;
+    uint8_t configChannel;
+
+    uint8_t regGain;
+    uint8_t regDrate;
+    uint8_t regChannel;
+};
 
 #define SELFCAL 0xF0
 #define SELFOCAL 0xF1
@@ -55,6 +112,8 @@
 #define ADS1256_FSC0 0x08
 #define ADS1256_FSC1 0x09
 #define ADS1256_FSC2 0x0A
+
+#define ADS1256_IO_OFF 0x00
 
 #define CLKOUT_OFF (0x00 << 5)
 #define CLKOUT_CLKIN (0x01 << 5)
@@ -131,4 +190,26 @@ void AD_SELFCAL(void);
 void AD_CAL_RegRead(void);
 uint8_t AD_READ(uint8_t addr);
 
+ADS1256_Status ADS1256_SPI_receiveByte(uint8_t *data);
+ADS1256_Status ADS1256_SPI_transmitByte(uint8_t *data);
+ADS1256_Status ADS1256_SPI_receive(uint8_t *data, int n);
+ADS1256_Status ADS1256_SPI_transmit(uint8_t *data, int n);
+
+void ADS1256_ConfigInit(ADS1256_t *ads1256);
+void ADS1256_read(uint8_t addr, uint8_t *data);
+void ADS1256_write(uint8_t addr, uint8_t *data);
+void ADS1256_setChannel(uint8_t channel);
+void ADS1256_setGain(int gain);
+void ADS1256_setDrate(Drate_enum drate);
+void ADS1256_getInfo(void);
+void ADS1256_SPI_init(void);
+uint32_t ADS1256_ReadRawData(void);
+float ADS1256_getVoltage(ADS1256_t *ads1256);
+void ADS1256_printVoltage(ADS1256_t *ads1256);
+void ADS1256_getOFC(void);
+uint32_t ADS1256_OFC(ADS1256_t *ads1256);
+float ADS1256_getFSC(ADS1256_t *ads1256);
+void ADS1256_SYSGCAL(void);
+void ADS1256_SELFCAL(void);
+float ADS1256_getVoltage_with_cal(ADS1256_t *ads1256);
 #endif /* _ADS1256_H_ */

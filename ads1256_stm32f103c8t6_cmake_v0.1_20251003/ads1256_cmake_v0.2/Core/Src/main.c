@@ -27,6 +27,9 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include "ads1256.h"
+#include "test.h"
+#include "ads1256_main.h"
+#include "config.h"
 
 /* USER CODE END Includes */
 
@@ -92,15 +95,23 @@ int main(void)
     /* Initialize all configured peripherals */
     MX_GPIO_Init();
     MX_I2C1_Init();
-    MX_SPI1_Init();
     MX_USART1_UART_Init();
     MX_SPI2_Init();
+    MX_USART2_UART_Init();
     /* USER CODE BEGIN 2 */
     float a = 10.1;
 
-    printf("[OK] start ads1256\n");
-    ADS1256_Init(ADS1256_GAIN_8, ADS1256_DRATE_100SPS, 3);
-    HAL_Delay(1000);
+#ifdef TEST
+    test_main();
+
+#elif defined(RELEASE)
+    printf("RELEASE Mode!!!\n");
+    ads1256_main();
+#else
+    printf("please define TEST or RELEASE in config.h\n");
+
+#endif
+
     /* USER CODE END 2 */
 
     /* Infinite loop */
@@ -110,20 +121,6 @@ int main(void)
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
-
-        printf("hello ads\n");
-        uint8_t data = AD_READ(0);
-        uint8_t data_mux = AD_READ(1);
-        uint8_t data_ad = AD_READ(2);
-        uint8_t data_drate = AD_READ(3);
-        printf("data = %d\n", data);
-        printf("data mux = %d\n", data_mux);
-        printf("data ad = %d\n", data_ad);
-        printf("data drate = %d\n", data_drate);
-
-        Data_Print();
-        // Transmit_To_Python();
-        HAL_Delay(1000);
     }
     /* USER CODE END 3 */
 }

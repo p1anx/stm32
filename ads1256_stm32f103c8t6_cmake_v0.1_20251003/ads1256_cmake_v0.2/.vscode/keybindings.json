@@ -1,0 +1,12 @@
+[
+  {
+    "key": "ctrl+f5",
+    "command": "workbench.action.tasks.runTask",
+    "args": "STM32 Build"
+  },
+  {
+    "key": "f7", 
+    "command": "workbench.action.tasks.runTask",
+    "args": "npm run build"
+  },
+]
