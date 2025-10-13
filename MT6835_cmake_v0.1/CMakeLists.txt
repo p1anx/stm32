@@ -32,7 +32,19 @@ message("Build type: " ${CMAKE_BUILD_TYPE})
 enable_language(C ASM)
 
 # Create an executable object type
-add_executable(${CMAKE_PROJECT_NAME})
+add_executable(${CMAKE_PROJECT_NAME}
+        BSP/tests/test_main.c
+        BSP/tests/test_main.h
+        BSP/tests/test_mt6835.c
+        BSP/tests/test_mt6835.h
+        BSP/tests/driver_encoder.c
+        BSP/tests/driver_encoder.h
+        BSP/motor_angle.c
+        BSP/motor_angle.h
+        BSP/mt6835.c
+        BSP/mt6835.h
+        BSP/motor_example.c
+        BSP/motor_example.h)
 
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
@@ -47,11 +59,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
 #    BSP/tests/test.c
     BSP/tests/test_gpio.c
-    BSP/tests/test_uart.c
-    BSP/tests/unity_test.c
     BSP/tests/unity/unity.c
     BSP/tests/unity/unity_config.c
-    BSP/mt6835.c
 )
 
 # Add include paths
@@ -84,7 +93,8 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     # -fdiagnostics-color=always
     # Add user defined libraries
 )
-
+# 为整个项目启用 Unity Build
+set(CMAKE_UNITY_BUILD OFF)
 # 设置 C 编译器彩色输出
 # set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fdiagnostics-color=always")
 set(CMAKE_COLOR_DIAGNOSTICS ON)

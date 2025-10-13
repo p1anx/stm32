@@ -25,8 +25,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "unity_test.h"
 #include "unity.h"
+#include "test_main.h"
 
 /* USER CODE END Includes */
 
@@ -97,6 +97,7 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
     // unity_test();
+    test_main_unity();
 
   /* USER CODE END 2 */
 
