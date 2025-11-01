@@ -54,6 +54,38 @@ void Example1_BasicUsage(void)
     }
 }
 
+void Example2_BasicUsage(void)
+{
+    // 初始化编码器
+    MT6835_Init(&encoder, &hspi2, GPIOB, GPIO_PIN_12);
+
+    // 初始化角度计算器 (减速比10:1)
+    // Motor_AngleCalc_Init(&motor, 10.0f);
+
+    printf("[ok] init\r\n");
+    printf("ratio: %.1f:1\r\n\r\n", motor.gear_ratio);
+
+    while(1)
+    {
+        // // 1. 读取编码器角度
+        // MT6835_ReadAngle(&encoder);
+        // float encoder_angle = MT6835_GetAngleDegrees(&encoder);
+        //
+        // // 2. 更新角度计算
+        // Motor_AngleCalc_Update(&encoder.motor_angle_calc, encoder_angle);
+
+        MT6835_Angle_Update(&encoder);
+        // 3. 获取输出轴角度
+        float output_angle = MT6835_GetMotorAngleDegrees(&encoder);
+
+
+        // 4. 显示结果
+        printf("motor angle: %.2f | actual angle: %.2f\r\n",
+               encoder.angle_deg, output_angle);
+
+        HAL_Delay(10);
+    }
+}
 /**
  * @brief  示例2: 多圈计数 - 显示转过的圈数
  */

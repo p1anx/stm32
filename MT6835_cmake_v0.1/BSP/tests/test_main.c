@@ -15,7 +15,8 @@ void test_main_unity(void)
     UNITY_BEGIN();
    // RUN_TEST(test_uart_transmit);
    // RUN_TEST(test_mt5835_init);
-   RUN_TEST(Example1_BasicUsage);
+   // RUN_TEST(Example1_BasicUsage);
+   RUN_TEST(Example2_BasicUsage);
     UNITY_END();
 }
 
