@@ -329,3 +329,21 @@ mmc5983_status_t mmc5983_read_status(uint8_t *status) {
     }
     return _mmc5983_read_reg(MMC5983_STATUS_ADDR, status);
 }
+
+void test_example(void) {
+
+  printf("test_mmc5983\n");
+  // --- MMC5983 初始化 ---
+  if (mmc5983_initConfig() != MMC5983_OK) {
+    // 初始化失败处理
+    Error_Handler();
+  }
+
+  mmc5983_raw_data_t mag_data;
+  mmc5983_Gauss_t dataGauss;
+
+  while (1)
+  {
+    mmc5983_measureGauss(&dataGauss);
+  }
+}

@@ -138,4 +138,5 @@ mmc5983_status_t mmc5983_readGauss(mmc5983_Gauss_t *dataGauss);
 void mmc5983_waitMeasureDone(void);
 mmc5983_status_t mmc5983_initConfig(void);
 mmc5983_status_t mmc5983_measureGauss(mmc5983_Gauss_t *dataGauss);
+void test_example(void);
 #endif /* __MMC5983_H */
